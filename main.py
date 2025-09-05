@@ -1,4 +1,5 @@
 from aiogram import Bot, Dispatcher, types
+from aiogram.filters import Command
 import os
 import asyncio
 import logging
@@ -22,7 +23,7 @@ def get_main_keyboard():
     return keyboard
 
 # Обработчик команды /start
-@dp.message(commands=['start'])
+@dp.message(Command('start'))
 async def send_welcome(message: types.Message):
     await message.reply(
         "Привет! 👋 Это мой первый бот на Render!",
@@ -30,7 +31,7 @@ async def send_welcome(message: types.Message):
     )
 
 # Обработчик команды /help
-@dp.message(commands=['help'])
+@dp.message(Command('help'))
 async def send_help(message: types.Message):
     await message.reply(
         "Я — твой первый бот! 🤖\nНажимай кнопки, чтобы общаться со мной.\nАвтор: ты сам 😉"
