@@ -17,9 +17,12 @@ dp = Dispatcher()
 
 # Функция для создания клавиатуры
 def get_main_keyboard():
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
     help_button = types.KeyboardButton("Помощь 🆘")
-    keyboard.add(help_button)
+    keyboard = types.ReplyKeyboardMarkup(
+        keyboard=[[help_button]], 
+        resize_keyboard=True, 
+        row_width=1
+    )
     return keyboard
 
 # Обработчик команды /start
