@@ -22,7 +22,7 @@ def get_main_keyboard():
     return keyboard
 
 # Обработчик команды /start
-@dp.message(types.Message, commands=['start'])
+@dp.message(commands=['start'])
 async def send_welcome(message: types.Message):
     await message.reply(
         "Привет! 👋 Это мой первый бот на Render!",
@@ -30,7 +30,7 @@ async def send_welcome(message: types.Message):
     )
 
 # Обработчик команды /help
-@dp.message(types.Message, commands=['help'])
+@dp.message(commands=['help'])
 async def send_help(message: types.Message):
     await message.reply(
         "Я — твой первый бот! 🤖\nНажимай кнопки, чтобы общаться со мной.\nАвтор: ты сам 😉"
