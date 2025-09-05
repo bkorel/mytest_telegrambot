@@ -49,10 +49,22 @@ async def main():
         # Удаляем webhook если он был установлен
         await bot.delete_webhook(drop_pending_updates=True)
         
+        # Ждем немного, чтобы другие экземпляры завершились
+        await asyncio.sleep(2)
+        
         # Запускаем polling
         await dp.start_polling(bot)
     except Exception as e:
         logging.error(f"Ошибка при запуске бота: {e}")
+        # Если ошибка связана с конфликтом, ждем и пробуем еще раз
+        if "TerminatedByOtherGetUpdates" in str(e):
+            logging.info("Обнаружен конфликт с другим экземпляром бота. Ждем 10 секунд...")
+            await asyncio.sleep(10)
+            try:
+                await bot.delete_webhook(drop_pending_updates=True)
+                await dp.start_polling(bot)
+            except Exception as retry_error:
+                logging.error(f"Ошибка при повторной попытке: {retry_error}")
     finally:
         await bot.session.close()
 
